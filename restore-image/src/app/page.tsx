@@ -1,239 +1,174 @@
-"use client";
+'use client';
 
-import React, { useState, MouseEvent, TouchEvent } from "react";
-import Link from "next/link";
-import { Cpu, Heart, Zap, ChevronRight } from "lucide-react";
+import { useState } from 'react';
+import Image from 'next/image';
 
-interface Image {
-  old: string;
-  new: string;
-  label: string;
-}
+export default function PaymentStatus() {
+  const [paymentMethod, setPaymentMethod] = useState('Visa Ending 2986');
 
-interface BeforeAfterSliderProps {
-  oldImg: string;
-  newImg: string;
-  index: number;
-}
-
-export default function LandingPage() {
-  const [sliderPositions, setSliderPositions] = useState<number[]>([50, 50, 50]);
-
-  const images: Image[] = [
-    { old: "/landmarkold.jpg", new: "/landmarknew.jpg", label: "Historic Landmark" },
-    { old: "/girlold.jpg", new: "/girlnew.jpg", label: "Portrait Restoration" },
-    { old: "/familyold.jpg", new: "/familynew.jpg", label: "Family Memory" },
+  const participants = [
+    { name: 'You', status: 'paid', avatar: '/avatars/you.png', color: 'bg-gradient-to-r from-blue-500 to-indigo-600' },
+    { name: 'Olabode', status: 'paid', avatar: '/avatars/olabode.png', color: 'bg-gradient-to-r from-green-500 to-teal-600' },
+    { name: 'Lukmon', status: 'paid', avatar: '/avatars/lukmon.png', color: 'bg-gradient-to-r from-purple-500 to-pink-600' },
+    { name: 'Hope', status: 'unpaid', avatar: '/avatars/hope.png', color: 'bg-gradient-to-r from-orange-500 to-red-600' },
+    { name: 'Dara', status: 'unpaid', avatar: '/avatars/dara.png', color: 'bg-gradient-to-r from-indigo-500 to-purple-600' },
   ];
 
-  const BeforeAfterSlider = ({ oldImg, newImg, index }: BeforeAfterSliderProps) => {
-    const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
-      const rect = e.currentTarget.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const percentage = (x / rect.width) * 100;
-      setSliderPositions((prev) => {
-        const newPos = [...prev];
-        newPos[index] = Math.max(0, Math.min(100, percentage));
-        return newPos;
-      });
-    };
+  const getStatusColor = (status) => {
+    return status === 'paid' ? 'bg-emerald-500' : 'bg-amber-500';
+  };
 
-    const handleTouchMove = (e: TouchEvent<HTMLDivElement>) => {
-      const rect = e.currentTarget.getBoundingClientRect();
-      const x = e.touches[0].clientX - rect.left;
-      const percentage = (x / rect.width) * 100;
-      setSliderPositions((prev) => {
-        const newPos = [...prev];
-        newPos[index] = Math.max(0, Math.min(100, percentage));
-        return newPos;
-      });
-    };
-
-    return (
-      <div
-        className="relative w-full h-full overflow-hidden bg-gray-900 cursor-col-resize"
-        onMouseMove={handleMouseMove}
-        onTouchMove={handleTouchMove}
-      >
-        {/* New Image (After) */}
-        <img
-          src={newImg}
-          alt="Restored"
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-        
-        {/* Old Image (Before) */}
-        <div
-          className="absolute inset-0 overflow-hidden"
-          style={{ width: `${sliderPositions[index]}%` }}
-        >
-          <img
-            src={oldImg}
-            alt="Original"
-            className="w-screen h-full object-cover"
-            style={{ width: `${(100 / sliderPositions[index]) * 100}%` }}
-          />
-        </div>
-
-        {/* Slider Handle */}
-        <div
-          className="absolute top-0 bottom-0 w-1 bg-white cursor-col-resize"
-          style={{ left: `${sliderPositions[index]}%` }}
-        >
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-full p-3 shadow-lg">
-            <ChevronRight className="w-4 h-4 text-gray-900 inline" />
-            <ChevronRight className="w-4 h-4 text-gray-900 -ml-2 inline" />
-          </div>
-        </div>
-      </div>
-    );
+  const getStatusTextColor = (status) => {
+    return status === 'paid' ? 'text-emerald-700' : 'text-amber-700';
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col">
-      {/* Hero Section */}
-      <header className="relative w-full py-24 flex flex-col items-center justify-center overflow-hidden">
-        {/* Animated Background */}
-        <div className="absolute inset-0 opacity-30">
-          <div className="absolute top-10 left-10 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"></div>
-          <div className="absolute top-40 right-10 w-72 h-72 bg-indigo-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse" style={{ animationDelay: "2s" }}></div>
-        </div>
-
-        <div className="relative z-10 px-4 text-center">
-          <div className="mb-6 inline-block">
-            <div className="px-4 py-2 bg-blue-500/20 border border-blue-400/50 rounded-full">
-              <p className="text-blue-300 text-sm font-semibold">AI-Powered Photo Restoration</p>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/20 to-indigo-100/30 p-6">
+      {/* Header */}
+      <div className="flex items-center justify-between mb-8">
+        <div className="flex items-center space-x-4">
+          <button className="w-10 h-10 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center shadow-sm border border-white/20 hover:shadow-md transition-shadow">
+            <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+          <div className="flex items-center space-x-3 p-3 bg-white/60 backdrop-blur-sm rounded-full shadow-lg border border-white/20">
+            <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full flex items-center justify-center">
+              <span className="text-white font-semibold text-sm">LO</span>
+            </div>
+            <div>
+              <p className="text-sm font-medium text-gray-700">Lukmon Olabode Ilebiyi</p>
             </div>
           </div>
-
-          <h1 className="text-6xl md:text-7xl font-black mb-6 text-white tracking-tight">
-            Qudely
-          </h1>
-
-          <p className="text-xl md:text-2xl max-w-3xl mx-auto mb-8 text-slate-300 leading-relaxed font-light">
-            Restore and colorize your cherished old photos with cutting-edge AI — bring your memories back to life in seconds.
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-            <Link
-              href="/auth/login"
-              className="px-8 py-4 bg-white text-slate-900 font-semibold rounded-lg hover:bg-slate-100 transition transform hover:scale-105"
-            >
-              Login
-            </Link>
-            <Link
-              href="/auth/signup"
-              className="px-8 py-4 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition transform hover:scale-105"
-            >
-              Start Free Trial
-            </Link>
+        </div>
+        <div className="flex items-center space-x-6">
+          <div className="text-right">
+            <p className="text-2xl font-bold text-gray-900">9:41</p>
+            <p className="text-sm text-gray-500">Wed, Oct 22</p>
+          </div>
+          <div className="w-12 h-12 bg-gradient-to-r from-gray-100 to-gray-200 rounded-full flex items-center justify-center">
+            <div className="w-full h-full bg-gradient-to-r from-emerald-500 to-teal-600 rounded-full animate-pulse"></div>
           </div>
         </div>
-      </header>
+      </div>
 
-      {/* Benefits Section */}
-      <section className="py-20 px-4 max-w-7xl mx-auto w-full">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {[
-            {
-              icon: <Cpu className="w-8 h-8" />,
-              title: "AI-Powered Magic",
-              desc: "Transform old photos instantly with intelligent restoration & colorization.",
-              color: "from-blue-500 to-cyan-500",
-            },
-            {
-              icon: <Heart className="w-8 h-8" />,
-              title: "Preserve Memories",
-              desc: "Bring family moments and historical photos back to life in vivid detail.",
-              color: "from-pink-500 to-rose-500",
-            },
-            {
-              icon: <Zap className="w-8 h-8" />,
-              title: "Easy & Fast",
-              desc: "No technical skills required — upload, restore, and download in seconds.",
-              color: "from-yellow-500 to-orange-500",
-            },
-          ].map((item, idx) => (
-            <div
-              key={idx}
-              className="group relative p-8 rounded-2xl bg-gradient-to-br from-slate-700 to-slate-800 border border-slate-600 hover:border-slate-500 transition-all hover:shadow-2xl hover:shadow-blue-500/20"
-            >
-              <div className={`inline-flex p-3 rounded-xl bg-gradient-to-r ${item.color} mb-4`}>
-                <div className="text-white">{item.icon}</div>
-              </div>
-              <h3 className="text-xl font-bold text-white mb-3">{item.title}</h3>
-              <p className="text-slate-400 leading-relaxed">{item.desc}</p>
+      <div className="max-w-4xl mx-auto">
+        {/* Title */}
+        <div className="flex items-center justify-between mb-8">
+          <h1 className="text-2xl font-bold text-gray-900">Payment Status</h1>
+          <button className="w-8 h-8 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center shadow-sm border border-white/20 hover:shadow-md transition-shadow">
+            <svg className="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 12l2 2 4-4" />
+            </svg>
+          </button>
+        </div>
+
+        {/* Invoice Card */}
+        <div className="bg-white/70 backdrop-blur-lg rounded-2xl shadow-xl border border-white/20 p-6 mb-8 overflow-hidden">
+          <div className="bg-gradient-to-r from-gray-900 to-slate-800/90 text-white px-6 py-4 rounded-xl -mx-6 -mt-6 mb-6">
+            <h2 className="text-lg font-semibold">Trip Invoice – Japan Summer 2025</h2>
+          </div>
+          <div className="grid grid-cols-2 gap-8 text-sm">
+            <div>
+              <p className="text-gray-900 font-semibold">Total</p>
+              <p className="text-3xl font-bold text-gray-900 mt-1">$30,000</p>
             </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Before/After Slider Section */}
-      <section className="py-20 px-4 w-full">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-black text-white mb-4">Before & After AI Magic</h2>
-            <p className="text-slate-400 text-lg">Drag the slider to see the transformation</p>
+            <div className="text-right">
+              <p className="text-gray-900 font-semibold">Per Person</p>
+              <p className="text-2xl font-bold text-emerald-600 mt-1">$6,000</p>
+            </div>
           </div>
+        </div>
 
-          <div className="space-y-12">
-            {images.map((img, idx) => (
-              <div key={idx} className="group">
-                <p className="text-slate-300 font-semibold mb-4 ml-2">{img.label}</p>
-                <div className="relative w-full rounded-2xl overflow-hidden shadow-2xl shadow-blue-500/20 aspect-video bg-slate-900">
-                  <BeforeAfterSlider oldImg={img.old} newImg={img.new} index={idx} />
-                  
-                  {/* Labels */}
-                  <div className="absolute top-4 left-4 z-20 bg-black/50 backdrop-blur px-3 py-1 rounded text-white text-sm font-semibold">
-                    Before
+        {/* Participants List */}
+        <div className="bg-white/70 backdrop-blur-lg rounded-2xl shadow-xl border border-white/20 p-6 mb-8 overflow-hidden">
+          <h3 className="text-lg font-semibold text-gray-900 mb-6">Participants</h3>
+          <div className="space-y-4">
+            {participants.map((participant, index) => (
+              <div key={index} className="flex items-center justify-between p-4 bg-white/50 rounded-xl border border-white/30">
+                <div className="flex items-center space-x-4">
+                  <div className={`w-12 h-12 rounded-full overflow-hidden flex-shrink-0 ${participant.color}`}>
+                    <Image
+                      src={participant.avatar}
+                      alt={participant.name}
+                      width={48}
+                      height={48}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
-                  <div className="absolute top-4 right-4 z-20 bg-black/50 backdrop-blur px-3 py-1 rounded text-white text-sm font-semibold">
-                    After
+                  <span className="font-medium text-gray-900">{participant.name}</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <div
+                    className={`w-5 h-5 rounded-full flex items-center justify-center ${getStatusColor(
+                      participant.status
+                    )}`}
+                  >
+                    <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                      <path
+                        fillRule="evenodd"
+                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
                   </div>
+                  <span
+                    className={`font-medium px-3 py-1 rounded-full text-sm ${getStatusTextColor(
+                      participant.status
+                    )} bg-white/60`}
+                  >
+                    {participant.status === 'paid' ? 'Paid' : 'Unpaid'}
+                  </span>
                 </div>
               </div>
             ))}
           </div>
         </div>
-      </section>
 
-      {/* CTA Section */}
-      <section className="py-20 px-4 w-full">
-        <div className="max-w-4xl mx-auto bg-gradient-to-r from-blue-600 to-indigo-600 rounded-3xl p-12 md:p-20 text-center shadow-2xl">
-          <h3 className="text-4xl md:text-5xl font-black text-white mb-6">Ready to revive your memories?</h3>
-          <p className="text-lg md:text-xl text-blue-100 mb-10 font-light">
-            Start your free trial today and see the magic in seconds.
-          </p>
-          <Link
-            href="/auth/signup"
-            className="inline-flex items-center gap-2 px-10 py-4 bg-white text-blue-600 font-semibold rounded-lg hover:bg-slate-100 transition transform hover:scale-105"
-          >
-            Get Started Now <ChevronRight className="w-5 h-5" />
-          </Link>
+        {/* Payment Status Bar */}
+        <div className="bg-white/70 backdrop-blur-lg rounded-2xl shadow-xl border border-white/20 p-6 mb-8 overflow-hidden">
+          <div className="flex items-center justify-between mb-6">
+            <h3 className="text-lg font-semibold text-gray-900">Payment Status</h3>
+            <span className="px-4 py-2 bg-gradient-to-r from-amber-500/20 to-amber-600/20 text-amber-700 font-semibold rounded-full border border-amber-500/30">
+              UNPAID
+            </span>
+          </div>
+          <div className="flex items-center space-x-2 bg-white/60 rounded-full p-1 border border-white/30">
+            <div className="w-12/24 h-3 bg-emerald-500 rounded-full"></div>
+            <div className="w-0/24 h-3 bg-emerald-500/30 rounded-full"></div>
+            <div className="w-12/24 h-3 bg-emerald-500 rounded-full"></div>
+            <div className="w-0/24 h-3 bg-gray-300 rounded-full"></div>
+            <div className="w-0/24 h-3 bg-gray-300 rounded-full"></div>
+          </div>
+          <div className="flex items-center justify-end space-x-4 mt-4">
+            <button className="flex items-center space-x-2 px-4 py-2 text-sm font-medium text-gray-600 bg-white/60 rounded-xl border border-white/30 hover:bg-white/80 transition-colors">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+              </svg>
+              <span>Send Reminder</span>
+            </button>
+            <button className="px-4 py-2 text-sm font-medium text-gray-600 bg-white/60 rounded-xl border border-white/30 hover:bg-white/80 transition-colors">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+            </button>
+          </div>
         </div>
-      </section>
 
-      {/* Footer */}
-      <footer className="mt-20 py-12 w-full text-center bg-black/30 border-t border-slate-700">
-        <p className="text-slate-400 text-sm mb-6">Made by Primyst</p>
-        <div className="flex flex-wrap justify-center gap-6">
-          {[
-            { label: "Portfolio", url: "https://aq-portfolio-rose.vercel.app/" },
-            { label: "GitHub", url: "https://github.com/primyst" },
-            { label: "X", url: "https://x.com/ApexDev026" },
-            { label: "Instagram", url: "https://www.instagram.com/qudus.26" },
-          ].map((link) => (
-            <a
-              key={link.label}
-              href={link.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-slate-400 hover:text-blue-400 transition font-medium"
-            >
-              {link.label}
-            </a>
-          ))}
+        {/* Pay Now Section */}
+        <div className="bg-white/70 backdrop-blur-lg rounded-2xl shadow-xl border border-white/20 p-6 space-y-6">
+          <div className="flex items-center justify-between">
+            <span className="text-sm font-medium text-gray-600">Payment Method</span>
+            <div className="flex items-center space-x-3">
+              <div className="w-8 h-5 bg-gradient-to-r from-blue-600 to-blue-700 rounded-full"></div>
+              <span className="text-sm font-medium text-gray-900">{paymentMethod}</span>
+            </div>
+          </div>
+          <button className="w-full bg-gradient-to-r from-gray-900 to-slate-800 text-white font-semibold py-4 px-6 rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200 text-lg">
+            Pay Now
+          </button>
         </div>
-      </footer>
+      </div>
     </div>
   );
 }
