@@ -28,19 +28,29 @@ export default function PaymentStatus() {
         </div>
 
         {/* Receipt Machine Top */}
-        <div className="mx-6 mb-6">
-          <div className="bg-gradient-to-b from-gray-900 via-gray-800 to-gray-700 rounded-t-3xl pt-8 px-6 pb-3 shadow-[0_6px_16px_rgba(0,0,0,0.3)] relative">
+        <div className="mx-6 mb-6 relative">
+          {/* Machine Top */}
+          <div className="bg-gradient-to-b from-gray-900 via-gray-800 to-gray-700 rounded-t-3xl pt-8 px-6 pb-4 shadow-[0_6px_16px_rgba(0,0,0,0.4)] relative">
             {/* Slot */}
-            <div className="bg-gradient-to-b from-black via-gray-950 to-gray-900 rounded-xl px-1 py-1 shadow-[inset_0_4px_6px_rgba(0,0,0,0.7)] overflow-hidden relative">
+            <div className="bg-gradient-to-b from-black via-gray-950 to-gray-900 rounded-xl px-1 py-1 shadow-[inset_0_4px_8px_rgba(0,0,0,0.9)] overflow-hidden relative">
               <div className="bg-gray-900 h-6 rounded-lg"></div>
+
+              {/* Slot Dark Shadow Overlay */}
+              <div className="absolute inset-x-0 top-0 h-4 bg-gradient-to-b from-black/80 via-black/50 to-transparent pointer-events-none"></div>
             </div>
           </div>
 
           {/* Animated Receipt */}
           <motion.div
-            initial={{ y: -40, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ type: 'spring', stiffness: 120 }}
+            animate={{
+              y: [0, -10, 0], // up and down motion
+              opacity: [1, 1, 1],
+            }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
             className="bg-white -mt-5 rounded-b-3xl relative shadow-[0_-6px_10px_-2px_rgba(0,0,0,0.15),0_6px_20px_rgba(0,0,0,0.1),inset_0_1px_3px_rgba(0,0,0,0.05)]"
           >
             {/* Receipt Header */}
@@ -158,4 +168,4 @@ export default function PaymentStatus() {
       </div>
     </div>
   )
-            }
+                }
