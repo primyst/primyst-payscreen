@@ -7,10 +7,10 @@ export default function PaymentStatus() {
   const [paymentMethod, setPaymentMethod] = useState('Visa Ending 2986');
 
   const participants = [
-    { name: 'You', status: 'paid', avatar: '/avatars/you.png', color: 'bg-gradient-to-r from-blue-500 to-indigo-600' },
-    { name: 'Olabode', status: 'paid', avatar: '/avatars/olabode.png', color: 'bg-gradient-to-r from-green-500 to-teal-600' },
-    { name: 'Lukmon', status: 'paid', avatar: '/avatars/lukmon.png', color: 'bg-gradient-to-r from-purple-500 to-pink-600' },
-    { name: 'Hope', status: 'unpaid', avatar: '/avatars/hope.png', color: 'bg-gradient-to-r from-orange-500 to-red-600' },
+    { name: 'You', status: 'paid', avatar: '/public/you.png', color: 'bg-gradient-to-r from-blue-500 to-indigo-600' },
+    { name: 'Olabode', status: 'paid', avatar: '/public/olabode.png', color: 'bg-gradient-to-r from-green-500 to-teal-600' },
+    { name: 'Lukmon', status: 'paid', avatar: '/public/lukmon.png', color: 'bg-gradient-to-r from-purple-500 to-pink-600' },
+    { name: 'Hope', status: 'unpaid', avatar: '/public/you.png', color: 'bg-gradient-to-r from-orange-500 to-red-600' },
     { name: 'Dara', status: 'unpaid', avatar: '/avatars/dara.png', color: 'bg-gradient-to-r from-indigo-500 to-purple-600' },
   ];
 
