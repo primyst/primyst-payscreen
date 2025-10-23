@@ -26,8 +26,9 @@ export default function PaymentStatus() {
     { name: 'Dara', avatar: 'dara.png', paid: false },
   ]
 
+  // Paper height for animation control
   const receiptHeight = 680
-  const initialOffset = -receiptHeight + 40
+  const initialOffset = -receiptHeight + 10 // start deep inside the slot
 
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
@@ -45,66 +46,77 @@ export default function PaymentStatus() {
 
         {/* Receipt Machine */}
         <div className="mx-6 mb-6 relative">
-          {/* Curved Machine Body */}
+          {/* Machine body */}
           <div className="relative bg-gradient-to-b from-gray-700 via-gray-600 to-gray-500 rounded-[2.5rem] pt-6 px-6 pb-8 shadow-[0_15px_50px_rgba(0,0,0,0.5),inset_0_-3px_10px_rgba(0,0,0,0.4)]">
-            {/* Inner shadow for depth */}
+            {/* Depth shadow */}
             <div className="absolute inset-0 rounded-[2.5rem] shadow-[inset_0_3px_15px_rgba(0,0,0,0.6)] pointer-events-none"></div>
-            
+
             {/* Top highlight */}
             <div className="absolute top-2 left-6 right-6 h-1.5 bg-gradient-to-r from-transparent via-white/8 to-transparent rounded-full"></div>
-            
-            {/* Card Slot Opening - Deep curved entrance like ATM */}
-            <div className="relative rounded-[1.5rem] overflow-visible" style={{ 
-              background: 'linear-gradient(to bottom, #1a1a2e 0%, #0f0f1e 50%, #000000 100%)',
-              boxShadow: 'inset 0 8px 20px rgba(0,0,0,0.9), inset 0 -3px 8px rgba(255,255,255,0.03), 0 2px 8px rgba(0,0,0,0.3)'
-            }}>
-              {/* Deep slot interior with strong depth */}
-              <div className="relative h-12 rounded-[1.5rem] overflow-hidden" style={{
-                background: 'radial-gradient(ellipse at center bottom, #1a1a2e 0%, #0a0a12 40%, #000000 100%)'
-              }}>
-                {/* Top inner shadow - very dark */}
-                <div className="absolute inset-0 bg-gradient-to-b from-black via-black/70 to-transparent" style={{ height: '60%' }}></div>
-                
-                {/* Bottom light catch - where paper will emerge */}
-                <div className="absolute inset-x-0 bottom-0 h-8 bg-gradient-to-t from-white/8 via-white/3 to-transparent"></div>
-                
-                {/* Subtle side shadows for cylindrical depth */}
-                <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-black/60 to-transparent"></div>
-                <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-black/60 to-transparent"></div>
-                
-                {/* Bottom edge highlight - simulates rim light */}
-                <div className="absolute inset-x-8 bottom-1 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent"></div>
-                <div className="absolute inset-x-6 bottom-0.5 h-0.5 bg-gradient-to-r from-transparent via-white/10 to-transparent blur-[2px]"></div>
+
+            {/* Card Slot Opening */}
+            <div
+              className="relative rounded-[1.5rem] overflow-visible"
+              style={{
+                background:
+                  'linear-gradient(to bottom, #2d2d2d 0%, #1c1c1c 40%, #0d0d0d 100%)',
+                boxShadow:
+                  'inset 0 8px 20px rgba(0,0,0,0.8), inset 0 -3px 6px rgba(255,255,255,0.08), 0 2px 8px rgba(0,0,0,0.3)',
+              }}
+            >
+              {/* Deep slot interior with smooth light gradient */}
+              <div
+                className="relative h-12 rounded-[1.5rem] overflow-hidden"
+                style={{
+                  background:
+                    'radial-gradient(ellipse at center, rgba(20,20,30,1) 0%, rgba(10,10,15,1) 40%, rgba(0,0,0,1) 100%)',
+                }}
+              >
+                {/* Top shadow */}
+                <div className="absolute inset-0 bg-gradient-to-b from-black via-black/70 to-transparent h-1/2"></div>
+
+                {/* Soft inner reflection to mimic light */}
+                <div className="absolute inset-x-0 bottom-0 h-6 bg-gradient-to-t from-white/15 via-white/10 to-transparent"></div>
+
+                {/* Left and right curved shadows */}
+                <div className="absolute left-0 top-0 bottom-0 w-10 bg-gradient-to-r from-black/40 to-transparent"></div>
+                <div className="absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-black/40 to-transparent"></div>
+
+                {/* Thin reflective rim edge */}
+                <div className="absolute inset-x-8 bottom-1 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent opacity-60"></div>
               </div>
-              
-              {/* Outer rim shadow */}
+
+              {/* Outer rim */}
               <div className="absolute inset-0 rounded-[1.5rem] shadow-[inset_0_2px_8px_rgba(0,0,0,0.8)] pointer-events-none"></div>
             </div>
-
-            {/* Machine base shadow */}
-            <div className="absolute inset-x-0 -top-1 h-4 bg-black/40 blur-lg rounded-t-[2.5rem]"></div>
           </div>
 
-          {/* Animated Receipt Paper */}
-          <div 
-            className="relative -mt-8 z-10"
+          {/* Animated Receipt */}
+          <div
+            className="relative z-10"
             style={{
-              transform: `translateY(${initialOffset + (initialOffset * -1 * printProgress / 100)}px)`,
-              transition: isPrinting ? 'transform 0.03s linear' : 'transform 0.3s ease-out',
+              transform: `translateY(${initialOffset + (receiptHeight * printProgress) / 100}px)`,
+              transition: isPrinting
+                ? 'transform 0.03s linear'
+                : 'transform 0.3s ease-out',
             }}
           >
             <div className="bg-white rounded-b-[1.5rem] shadow-[0_-8px_12px_-4px_rgba(0,0,0,0.15),0_8px_24px_rgba(0,0,0,0.12),inset_0_2px_4px_rgba(0,0,0,0.04)] relative">
-              {/* Paper texture overlay */}
-              <div className="absolute inset-0 rounded-b-[1.5rem] opacity-[0.03] pointer-events-none" style={{
-                backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px)`
-              }}></div>
-              
-              {/* Top edge shadow from machine */}
-              <div className="absolute -top-2 inset-x-0 h-4 bg-gradient-to-b from-black/20 via-black/5 to-transparent pointer-events-none"></div>
-              
-              {/* Paper sides shadow */}
-              <div className="absolute -left-1 top-0 bottom-0 w-2 bg-gradient-to-r from-black/10 to-transparent rounded-l-[1.5rem] pointer-events-none"></div>
-              <div className="absolute -right-1 top-0 bottom-0 w-2 bg-gradient-to-l from-black/10 to-transparent rounded-r-[1.5rem] pointer-events-none"></div>
+              {/* Subtle texture */}
+              <div
+                className="absolute inset-0 rounded-b-[1.5rem] opacity-[0.03]"
+                style={{
+                  backgroundImage:
+                    'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px)',
+                }}
+              ></div>
+
+              {/* Top edge shadow under slot */}
+              <div className="absolute -top-2 inset-x-0 h-4 bg-gradient-to-b from-black/25 via-black/10 to-transparent"></div>
+
+              {/* Paper side shadows */}
+              <div className="absolute -left-1 top-0 bottom-0 w-2 bg-gradient-to-r from-black/10 to-transparent rounded-l-[1.5rem]"></div>
+              <div className="absolute -right-1 top-0 bottom-0 w-2 bg-gradient-to-l from-black/10 to-transparent rounded-r-[1.5rem]"></div>
 
               {/* Receipt Header */}
               <div className="px-6 pt-4 pb-4 border-b border-gray-200">
@@ -120,16 +132,23 @@ export default function PaymentStatus() {
               <div className="px-6">
                 <div className="flex justify-between items-center mb-2 pt-4">
                   <span className="text-gray-600 text-lg">Total</span>
-                  <span className="text-2xl font-semibold text-gray-900">$30,000</span>
+                  <span className="text-2xl font-semibold text-gray-900">
+                    $30,000
+                  </span>
                 </div>
                 <div className="flex justify-between items-center mb-6 pb-4 border-b border-gray-100">
                   <span className="text-gray-600 text-lg">Per Person</span>
-                  <span className="text-2xl font-semibold text-gray-900">$6,000</span>
+                  <span className="text-2xl font-semibold text-gray-900">
+                    $6,000
+                  </span>
                 </div>
 
                 <div className="space-y-3 mb-6">
                   {participants.map((p, i) => (
-                    <div key={i} className="flex items-center justify-between py-2">
+                    <div
+                      key={i}
+                      className="flex items-center justify-between py-2"
+                    >
                       <div className="flex items-center gap-3">
                         {p.avatar ? (
                           <img
@@ -142,7 +161,9 @@ export default function PaymentStatus() {
                             {p.name.charAt(0)}
                           </div>
                         )}
-                        <span className="text-gray-800 font-medium">{p.name}</span>
+                        <span className="text-gray-800 font-medium">
+                          {p.name}
+                        </span>
                       </div>
                       {p.paid ? (
                         <div className="flex items-center gap-1.5 bg-green-50 text-green-600 px-3 py-1.5 rounded-full border border-green-100">
@@ -161,8 +182,12 @@ export default function PaymentStatus() {
 
                 <div className="bg-gray-50 rounded-xl p-4 mb-4 border border-gray-100">
                   <div className="flex justify-between items-center mb-3">
-                    <span className="text-gray-700 font-medium">Payment Status</span>
-                    <span className="text-xl font-bold text-gray-800">UNPAID</span>
+                    <span className="text-gray-700 font-medium">
+                      Payment Status
+                    </span>
+                    <span className="text-xl font-bold text-gray-800">
+                      UNPAID
+                    </span>
                   </div>
 
                   <div className="flex items-center justify-center gap-2">
@@ -206,7 +231,9 @@ export default function PaymentStatus() {
           <div className="flex items-center justify-between mb-4">
             <span className="text-gray-600">Payment Method</span>
             <div className="flex items-center gap-2">
-              <span className="text-gray-800 font-medium">Visa Ending 2986</span>
+              <span className="text-gray-800 font-medium">
+                Visa Ending 2986
+              </span>
               <div className="w-8 h-6 bg-blue-600 rounded shadow-sm"></div>
             </div>
           </div>
