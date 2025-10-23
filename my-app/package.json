@@ -1,5 +1,5 @@
 {
-  "name": "restore-image",
+  "name": "my-app",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -20,7 +20,7 @@
     "react-dom": "^19.1.0",
     "swr": "^2.3.6",
     "framer-motion": "^12.9.7"
-    "
+    
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
