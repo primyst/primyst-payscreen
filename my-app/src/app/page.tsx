@@ -3,22 +3,29 @@
 import { useState } from 'react';
 import Image from 'next/image';
 
-export default function PaymentStatus() {
-  const [paymentMethod, setPaymentMethod] = useState('Visa Ending 2986');
+interface Participant {
+  name: string;
+  status: 'paid' | 'unpaid';
+  avatar: string;
+  color: string;
+}
 
-  const participants = [
+export default function PaymentStatus() {
+  const [paymentMethod, setPaymentMethod] = useState<string>('Visa Ending 2986');
+
+  const participants: Participant[] = [
     { name: 'You', status: 'paid', avatar: 'you.png', color: 'bg-gradient-to-r from-blue-500 to-indigo-600' },
     { name: 'Olabode', status: 'paid', avatar: 'olabode.png', color: 'bg-gradient-to-r from-green-500 to-teal-600' },
     { name: 'Lukmon', status: 'paid', avatar: 'lukmon.png', color: 'bg-gradient-to-r from-purple-500 to-pink-600' },
-    { name: 'Hope', status: 'unpaid', avatar: 'you.png', color: 'bg-gradient-to-r from-orange-500 to-red-600' },
+    { name: 'Hope', status: 'unpaid', avatar: 'hope.png', color: 'bg-gradient-to-r from-orange-500 to-red-600' },
     { name: 'Dara', status: 'unpaid', avatar: 'dara.png', color: 'bg-gradient-to-r from-indigo-500 to-purple-600' },
   ];
 
-  const getStatusColor = (status) => {
+  const getStatusColor = (status: Participant['status']): string => {
     return status === 'paid' ? 'bg-emerald-500' : 'bg-amber-500';
   };
 
-  const getStatusTextColor = (status) => {
+  const getStatusTextColor = (status: Participant['status']): string => {
     return status === 'paid' ? 'text-emerald-700' : 'text-amber-700';
   };
 
@@ -27,7 +34,10 @@ export default function PaymentStatus() {
       {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <div className="flex items-center space-x-4">
-          <button className="w-10 h-10 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center shadow-sm border border-white/20 hover:shadow-md transition-shadow">
+          <button 
+            type="button"
+            className="w-10 h-10 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center shadow-sm border border-white/20 hover:shadow-md transition-shadow"
+          >
             <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
@@ -56,7 +66,10 @@ export default function PaymentStatus() {
         {/* Title */}
         <div className="flex items-center justify-between mb-8">
           <h1 className="text-2xl font-bold text-gray-900">Payment Status</h1>
-          <button className="w-8 h-8 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center shadow-sm border border-white/20 hover:shadow-md transition-shadow">
+          <button 
+            type="button"
+            className="w-8 h-8 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center shadow-sm border border-white/20 hover:shadow-md transition-shadow"
+          >
             <svg className="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 12l2 2 4-4" />
             </svg>
@@ -84,7 +97,7 @@ export default function PaymentStatus() {
         <div className="bg-white/70 backdrop-blur-lg rounded-2xl shadow-xl border border-white/20 p-6 mb-8 overflow-hidden">
           <h3 className="text-lg font-semibold text-gray-900 mb-6">Participants</h3>
           <div className="space-y-4">
-            {participants.map((participant, index) => (
+            {participants.map((participant: Participant, index: number) => (
               <div key={index} className="flex items-center justify-between p-4 bg-white/50 rounded-xl border border-white/30">
                 <div className="flex items-center space-x-4">
                   <div className={`w-12 h-12 rounded-full overflow-hidden flex-shrink-0 ${participant.color}`}>
@@ -141,13 +154,19 @@ export default function PaymentStatus() {
             <div className="w-0/24 h-3 bg-gray-300 rounded-full"></div>
           </div>
           <div className="flex items-center justify-end space-x-4 mt-4">
-            <button className="flex items-center space-x-2 px-4 py-2 text-sm font-medium text-gray-600 bg-white/60 rounded-xl border border-white/30 hover:bg-white/80 transition-colors">
+            <button 
+              type="button"
+              className="flex items-center space-x-2 px-4 py-2 text-sm font-medium text-gray-600 bg-white/60 rounded-xl border border-white/30 hover:bg-white/80 transition-colors"
+            >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
               </svg>
               <span>Send Reminder</span>
             </button>
-            <button className="px-4 py-2 text-sm font-medium text-gray-600 bg-white/60 rounded-xl border border-white/30 hover:bg-white/80 transition-colors">
+            <button 
+              type="button"
+              className="px-4 py-2 text-sm font-medium text-gray-600 bg-white/60 rounded-xl border border-white/30 hover:bg-white/80 transition-colors"
+            >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
@@ -164,11 +183,14 @@ export default function PaymentStatus() {
               <span className="text-sm font-medium text-gray-900">{paymentMethod}</span>
             </div>
           </div>
-          <button className="w-full bg-gradient-to-r from-gray-900 to-slate-800 text-white font-semibold py-4 px-6 rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200 text-lg">
+          <button 
+            type="button"
+            className="w-full bg-gradient-to-r from-gray-900 to-slate-800 text-white font-semibold py-4 px-6 rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200 text-lg"
+          >
             Pay Now
           </button>
         </div>
       </div>
     </div>
   );
-}
+        }
