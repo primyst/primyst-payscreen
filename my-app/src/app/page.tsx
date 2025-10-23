@@ -29,25 +29,35 @@ export default function PaymentStatus() {
 
         {/* Receipt Machine Top */}
         <div className="mx-6 mb-6 relative">
-          <div className="bg-gradient-to-b from-gray-900 via-gray-800 to-gray-700 rounded-t-3xl pt-8 px-6 pb-4 shadow-[0_6px_16px_rgba(0,0,0,0.4)] relative">
+          <div className="bg-gradient-to-b from-gray-900 via-gray-800 to-gray-700 rounded-t-3xl pt-8 px-6 pb-4 shadow-[0_8px_20px_rgba(0,0,0,0.5)] relative">
             {/* Slot */}
-            <div className="bg-gradient-to-b from-black via-gray-950 to-gray-900 rounded-xl px-1 py-1 shadow-[inset_0_4px_8px_rgba(0,0,0,0.9)] overflow-hidden relative">
+            <div className="bg-gradient-to-b from-black via-gray-950 to-gray-900 rounded-xl px-1 py-1 shadow-[inset_0_4px_10px_rgba(0,0,0,0.9)] overflow-hidden relative">
               <div className="bg-gray-900 h-6 rounded-lg"></div>
 
               {/* Dark top overlay for depth */}
               <div className="absolute inset-x-0 top-0 h-4 bg-gradient-to-b from-black/80 via-black/50 to-transparent pointer-events-none"></div>
             </div>
+
+            {/* Faint top shadow to mimic hardware lid */}
+            <div className="absolute inset-x-0 top-0 h-2 bg-black/30 blur-sm rounded-t-3xl"></div>
           </div>
 
           {/* Animated Receipt (comes out like POS) */}
           <motion.div
-            initial={{ y: -250, opacity: 0.6, scaleY: 0.9 }}
-            animate={{ y: 0, opacity: 1, scaleY: 1 }}
+            initial={{ y: -220, opacity: 0 }}
+            animate={{
+              y: [ -220, 0, -3, 0 ],
+              opacity: [ 0, 1, 1 ],
+              rotate: [0, 0.3, -0.3, 0.1, 0],
+            }}
             transition={{
-              type: 'spring',
-              stiffness: 80,
-              damping: 12,
-              delay: 0.3,
+              duration: 1.8,
+              ease: 'easeOut',
+              times: [0, 0.7, 0.9, 1],
+            }}
+            whileHover={{
+              rotate: [0.1, -0.1, 0.1],
+              transition: { repeat: Infinity, duration: 0.5 },
             }}
             className="bg-white -mt-5 rounded-b-3xl relative shadow-[0_-6px_10px_-2px_rgba(0,0,0,0.15),0_6px_20px_rgba(0,0,0,0.1),inset_0_1px_3px_rgba(0,0,0,0.05)]"
           >
