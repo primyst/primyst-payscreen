@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import { ArrowLeft, Share2, Check, Clock, Receipt } from 'lucide-react'
+import { ArrowLeft, Share2, Check, Clock } from 'lucide-react'
 
 export default function PaymentStatus() {
   const [isPrinting, setIsPrinting] = useState(true)
@@ -30,8 +30,8 @@ export default function PaymentStatus() {
   const initialOffset = -receiptHeight
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
+    <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-4">
+      <div className="w-full max-w-md flex-1">
         {/* Header */}
         <div className="bg-white rounded-3xl shadow-lg mb-6">
           <div className="flex items-center justify-between p-6">
@@ -45,8 +45,8 @@ export default function PaymentStatus() {
           </div>
         </div>
 
-        {/* Machine & Receipt Container */}
-        <div className="bg-white rounded-3xl shadow-lg overflow-hidden">
+        {/* Machine & Receipt */}
+        <div className="bg-white rounded-3xl shadow-lg overflow-hidden relative">
           <div className="relative">
 
             {/* --- MACHINE ENTRANCE --- */}
@@ -60,7 +60,7 @@ export default function PaymentStatus() {
               }}
             >
               <div className="flex">
-                {/* Left Side */}
+                {/* Left */}
                 <div className="w-12 bg-gradient-to-br from-gray-700 to-gray-600 relative">
                   <div className="absolute inset-0 bg-gradient-to-r from-black/20 to-transparent"></div>
                 </div>
@@ -86,13 +86,13 @@ export default function PaymentStatus() {
                   </div>
                 </div>
 
-                {/* Right Side */}
+                {/* Right */}
                 <div className="w-12 bg-gradient-to-bl from-gray-700 to-gray-600 relative">
                   <div className="absolute inset-0 bg-gradient-to-l from-black/20 to-transparent"></div>
                 </div>
               </div>
 
-              {/* Shadows */}
+              {/* Subtle Shadows */}
               <div
                 className="absolute inset-0 shadow-[inset_0_3px_15px_rgba(0,0,0,0.6)] pointer-events-none"
                 style={{
@@ -105,7 +105,7 @@ export default function PaymentStatus() {
               <div className="absolute top-3 left-16 right-16 h-1 bg-gradient-to-r from-transparent via-white/10 to-transparent rounded-full"></div>
             </div>
 
-            {/* --- RECEIPT (Now comes UNDER the entrance) --- */}
+            {/* --- RECEIPT --- */}
             <div
               className="absolute left-0 right-0 top-full z-10"
               style={{
@@ -116,7 +116,6 @@ export default function PaymentStatus() {
               }}
             >
               <div className="mx-6 bg-white rounded-b-2xl shadow-[0_8px_24px_rgba(0,0,0,0.12),0_-4px_12px_rgba(0,0,0,0.08)] relative">
-                {/* Paper texture */}
                 <div
                   className="absolute inset-0 rounded-b-2xl opacity-[0.03] pointer-events-none"
                   style={{
@@ -125,7 +124,6 @@ export default function PaymentStatus() {
                   }}
                 ></div>
 
-                {/* Paper content */}
                 <div className="px-6 pt-4">
                   <h2 className="text-center text-gray-800 font-mono text-sm font-medium mb-2">
                     Trip Invoice – Japan Summer 2025
@@ -134,16 +132,12 @@ export default function PaymentStatus() {
 
                   <div className="flex justify-between items-center mb-2">
                     <span className="text-gray-600 text-lg">Total</span>
-                    <span className="text-2xl font-semibold text-gray-900">
-                      $30,000
-                    </span>
+                    <span className="text-2xl font-semibold text-gray-900">$30,000</span>
                   </div>
 
                   <div className="flex justify-between items-center mb-6 pb-4 border-b border-gray-100">
                     <span className="text-gray-600 text-lg">Per Person</span>
-                    <span className="text-2xl font-semibold text-gray-900">
-                      $6,000
-                    </span>
+                    <span className="text-2xl font-semibold text-gray-900">$6,000</span>
                   </div>
 
                   <div className="space-y-3 mb-6">
@@ -181,7 +175,6 @@ export default function PaymentStatus() {
               </div>
             </div>
 
-            {/* Printing indicator */}
             {isPrinting && (
               <div className="absolute top-4 right-4 bg-green-500 w-2 h-2 rounded-full animate-pulse shadow-lg z-30"></div>
             )}
@@ -208,6 +201,18 @@ export default function PaymentStatus() {
         </div>
       </div>
 
+      {/* 🔻 FOOTER */}
+      <footer className="mt-6 text-center text-sm text-gray-500">
+        by{' '}
+        <a
+          href="https://aq-portfolio-rose.vercel.app/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-gray-700 font-medium hover:text-gray-900 transition-colors"
+        >
+          Abdulqudus (primyst)
+        </a>
+      </footer>
     </div>
   )
 }
