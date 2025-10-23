@@ -207,18 +207,7 @@ export default function PaymentStatus() {
           </div>
         </div>
       </div>
-{/* 🔻 FOOTER */}
-      <footer className="mt-6 text-center text-sm text-gray-500">
-        by{' '}
-        <a
-          href="https://aq-portfolio-rose.vercel.app/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-gray-700 font-medium hover:text-gray-900 transition-colors"
-        >
-          Abdulqudus (primyst)
-        </a>
-      </footer>
+
     </div>
   )
 }
