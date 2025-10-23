@@ -46,46 +46,48 @@ export default function PaymentStatus() {
         {/* Receipt Machine */}
         <div className="mx-6 mb-6 relative">
           {/* Curved Machine Body */}
-          <div className="relative bg-gradient-to-b from-gray-900 via-gray-800 to-gray-700 rounded-[2rem] pt-8 px-6 pb-5 shadow-[0_10px_40px_rgba(0,0,0,0.4),inset_0_-2px_8px_rgba(0,0,0,0.3)]">
+          <div className="relative bg-gradient-to-b from-gray-700 via-gray-600 to-gray-500 rounded-[2.5rem] pt-6 px-6 pb-8 shadow-[0_15px_50px_rgba(0,0,0,0.5),inset_0_-3px_10px_rgba(0,0,0,0.4)]">
             {/* Inner shadow for depth */}
-            <div className="absolute inset-0 rounded-[2rem] shadow-[inset_0_2px_10px_rgba(0,0,0,0.5)] pointer-events-none"></div>
+            <div className="absolute inset-0 rounded-[2.5rem] shadow-[inset_0_3px_15px_rgba(0,0,0,0.6)] pointer-events-none"></div>
             
-            {/* Subtle highlights */}
-            <div className="absolute top-4 left-4 right-4 h-1 bg-gradient-to-r from-transparent via-white/10 to-transparent rounded-full"></div>
+            {/* Top highlight */}
+            <div className="absolute top-2 left-6 right-6 h-1.5 bg-gradient-to-r from-transparent via-white/8 to-transparent rounded-full"></div>
             
-            {/* Card Slot Opening - with curved edges */}
-            <div className="relative bg-gradient-to-b from-gray-900 via-gray-700 to-gray-600 rounded-[1.2rem] px-2 py-2 shadow-[inset_0_6px_15px_rgba(0,0,0,0.7),inset_0_-2px_6px_rgba(255,255,255,0.08)] overflow-hidden">
-              {/* Slot interior */}
-              <div className="bg-gradient-to-b from-gray-900 via-gray-800 to-gray-700 h-8 rounded-[1rem] relative overflow-hidden">
-                {/* Inner slot shadows */}
-                <div className="absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-black/70 via-black/40 to-transparent"></div>
-                <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-gray-600/30 to-transparent"></div>
+            {/* Card Slot Opening - Deep curved entrance like ATM */}
+            <div className="relative rounded-[1.5rem] overflow-visible" style={{ 
+              background: 'linear-gradient(to bottom, #1a1a2e 0%, #0f0f1e 50%, #000000 100%)',
+              boxShadow: 'inset 0 8px 20px rgba(0,0,0,0.9), inset 0 -3px 8px rgba(255,255,255,0.03), 0 2px 8px rgba(0,0,0,0.3)'
+            }}>
+              {/* Deep slot interior with strong depth */}
+              <div className="relative h-12 rounded-[1.5rem] overflow-hidden" style={{
+                background: 'radial-gradient(ellipse at center bottom, #1a1a2e 0%, #0a0a12 40%, #000000 100%)'
+              }}>
+                {/* Top inner shadow - very dark */}
+                <div className="absolute inset-0 bg-gradient-to-b from-black via-black/70 to-transparent" style={{ height: '60%' }}></div>
                 
-                {/* Light reflection bar at bottom edge - simulating light bouncing off paper */}
-                <div className="absolute inset-x-3 bottom-0.5 h-1 bg-gradient-to-r from-transparent via-white/20 to-transparent blur-[1px]"></div>
-                <div className="absolute inset-x-4 bottom-1 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
+                {/* Bottom light catch - where paper will emerge */}
+                <div className="absolute inset-x-0 bottom-0 h-8 bg-gradient-to-t from-white/8 via-white/3 to-transparent"></div>
+                
+                {/* Subtle side shadows for cylindrical depth */}
+                <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-black/60 to-transparent"></div>
+                <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-black/60 to-transparent"></div>
+                
+                {/* Bottom edge highlight - simulates rim light */}
+                <div className="absolute inset-x-8 bottom-1 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent"></div>
+                <div className="absolute inset-x-6 bottom-0.5 h-0.5 bg-gradient-to-r from-transparent via-white/10 to-transparent blur-[2px]"></div>
               </div>
-
-              {/* Softer top shadow */}
-              <div className="absolute inset-x-0 top-0 h-6 bg-gradient-to-b from-black/60 via-black/30 to-transparent pointer-events-none"></div>
               
-              {/* Enhanced bottom glow where paper emerges */}
-              <div className="absolute inset-x-0 bottom-0 h-4 bg-gradient-to-t from-white/12 via-white/6 to-transparent pointer-events-none"></div>
-              
-              {/* Rim light on inner edges */}
-              <div className="absolute inset-x-2 bottom-2 h-3 border-b border-white/10 rounded-b-xl pointer-events-none"></div>
+              {/* Outer rim shadow */}
+              <div className="absolute inset-0 rounded-[1.5rem] shadow-[inset_0_2px_8px_rgba(0,0,0,0.8)] pointer-events-none"></div>
             </div>
 
-            {/* Subtle panel lines */}
-            <div className="absolute left-8 right-8 top-3 h-px bg-gradient-to-r from-transparent via-white/5 to-transparent"></div>
-            
-            {/* Machine top shadow */}
-            <div className="absolute inset-x-0 -top-1 h-3 bg-black/30 blur-md rounded-t-[2rem]"></div>
+            {/* Machine base shadow */}
+            <div className="absolute inset-x-0 -top-1 h-4 bg-black/40 blur-lg rounded-t-[2.5rem]"></div>
           </div>
 
           {/* Animated Receipt Paper */}
           <div 
-            className="relative -mt-4 z-10"
+            className="relative -mt-8 z-10"
             style={{
               transform: `translateY(${initialOffset + (initialOffset * -1 * printProgress / 100)}px)`,
               transition: isPrinting ? 'transform 0.03s linear' : 'transform 0.3s ease-out',
