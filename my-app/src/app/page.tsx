@@ -27,39 +27,46 @@ export default function PaymentStatus() {
           </button>
         </div>
 
-        {/* Receipt Machine Top */}
+        {/* Receipt Machine */}
         <div className="mx-6 mb-6 relative">
-          <div className="bg-gradient-to-b from-gray-900 via-gray-800 to-gray-700 rounded-t-3xl pt-8 px-6 pb-4 shadow-[0_8px_20px_rgba(0,0,0,0.5)] relative">
+          {/* Machine top */}
+          <div className="bg-gradient-to-b from-gray-900 via-gray-800 to-gray-700 rounded-t-3xl pt-8 px-6 pb-4 shadow-[0_8px_20px_rgba(0,0,0,0.5)] relative overflow-hidden">
             {/* Slot */}
-            <div className="bg-gradient-to-b from-black via-gray-950 to-gray-900 rounded-xl px-1 py-1 shadow-[inset_0_4px_10px_rgba(0,0,0,0.9)] overflow-hidden relative">
+            <div className="bg-gradient-to-b from-black via-gray-950 to-gray-900 rounded-xl px-1 py-1 shadow-[inset_0_4px_10px_rgba(0,0,0,0.9)] relative z-20 overflow-hidden">
               <div className="bg-gray-900 h-6 rounded-lg"></div>
 
-              {/* Dark top overlay for depth */}
-              <div className="absolute inset-x-0 top-0 h-4 bg-gradient-to-b from-black/80 via-black/50 to-transparent pointer-events-none"></div>
+              {/* Light & shadow effects */}
+              <div className="absolute inset-x-0 top-0 h-4 bg-gradient-to-b from-black/80 via-black/60 to-transparent pointer-events-none"></div>
+              <div className="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-t from-gray-700/60 to-transparent blur-[2px]"></div>
             </div>
 
-            {/* Faint top shadow to mimic hardware lid */}
-            <div className="absolute inset-x-0 top-0 h-2 bg-black/30 blur-sm rounded-t-3xl"></div>
+            {/* Top shadow mimic */}
+            <div className="absolute inset-x-0 top-0 h-2 bg-black/40 blur-sm rounded-t-3xl"></div>
           </div>
 
-          {/* Animated Receipt (comes out like POS) */}
+          {/* Animated Receipt */}
           <motion.div
-            initial={{ y: -220, opacity: 0 }}
+            initial={{ y: -280, opacity: 0 }}
             animate={{
-              y: [ -220, 0, -3, 0 ],
-              opacity: [ 0, 1, 1 ],
-              rotate: [0, 0.3, -0.3, 0.1, 0],
+              y: [ -280, -10, -3, 0 ],
+              opacity: [ 0, 1, 1, 1 ],
+              rotate: [0, 0.4, -0.4, 0],
             }}
             transition={{
-              duration: 1.8,
+              duration: 2.2,
               ease: 'easeOut',
               times: [0, 0.7, 0.9, 1],
             }}
-            whileHover={{
-              rotate: [0.1, -0.1, 0.1],
-              transition: { repeat: Infinity, duration: 0.5 },
+            whileInView={{
+              y: [0, -5, 0, -2, 0],
+              rotate: [0.2, -0.2, 0.1, -0.1, 0],
+              transition: {
+                repeat: Infinity,
+                duration: 3,
+                ease: 'easeInOut',
+              },
             }}
-            className="bg-white -mt-5 rounded-b-3xl relative shadow-[0_-6px_10px_-2px_rgba(0,0,0,0.15),0_6px_20px_rgba(0,0,0,0.1),inset_0_1px_3px_rgba(0,0,0,0.05)]"
+            className="bg-white -mt-5 rounded-b-3xl relative z-10 shadow-[0_-6px_10px_-2px_rgba(0,0,0,0.15),0_6px_20px_rgba(0,0,0,0.1),inset_0_1px_3px_rgba(0,0,0,0.05)]"
           >
             {/* Receipt Header */}
             <div className="px-6 pt-3 pb-4 border-b border-gray-200">
@@ -73,7 +80,6 @@ export default function PaymentStatus() {
 
             {/* Receipt Body */}
             <div className="px-6">
-              {/* Totals */}
               <div className="flex justify-between items-center mb-2 pt-4">
                 <span className="text-gray-600 text-lg">Total</span>
                 <span className="text-2xl font-semibold text-gray-900">$30,000</span>
@@ -83,7 +89,6 @@ export default function PaymentStatus() {
                 <span className="text-2xl font-semibold text-gray-900">$6,000</span>
               </div>
 
-              {/* Participants */}
               <div className="space-y-3 mb-6">
                 {participants.map((p, i) => (
                   <div key={i} className="flex items-center justify-between py-2">
@@ -116,7 +121,6 @@ export default function PaymentStatus() {
                 ))}
               </div>
 
-              {/* Payment Progress */}
               <div className="bg-gray-50 rounded-xl p-4 mb-4">
                 <div className="flex justify-between items-center mb-3">
                   <span className="text-gray-700 font-medium">Payment Status</span>
@@ -141,7 +145,6 @@ export default function PaymentStatus() {
                 </div>
               </div>
 
-              {/* Buttons */}
               <div className="flex gap-3 pb-6">
                 <button className="flex-1 bg-gray-800 text-white py-3.5 rounded-xl font-medium hover:bg-gray-900 transition-colors">
                   Send Reminder
@@ -169,7 +172,6 @@ export default function PaymentStatus() {
           </button>
         </div>
 
-        {/* Bottom Indicator */}
         <div className="flex justify-center pb-6">
           <div className="w-32 h-1.5 bg-gray-800 rounded-full"></div>
         </div>
