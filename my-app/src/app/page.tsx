@@ -6,11 +6,11 @@ import { motion } from 'framer-motion'
 
 export default function PaymentStatus() {
   const participants = [
-    { name: 'You', avatar: '/avatars/you.png', paid: true },
-    { name: 'Olabode', avatar: '/avatars/olabode.png', paid: true },
-    { name: 'Lukmon', avatar: '/avatars/lukmon.png', paid: true },
-    { name: 'Hope', avatar: '/avatars/hope.png', paid: false },
-    { name: 'Dara', avatar: '/avatars/dara.png', paid: false },
+    { name: 'You', avatar: 'you.png', paid: true },
+    { name: 'Olabode', avatar: 'olabode.png', paid: true },
+    { name: 'Lukmon', avatar: 'lukmon.png', paid: true },
+    { name: 'Hope', avatar: 'hope.png', paid: false },
+    { name: 'Dara', avatar: 'dara.png', paid: false },
   ]
 
   return (
